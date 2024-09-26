@@ -1,0 +1,17 @@
+spring:
+  config:
+    activate:
+      on-profile: local
+  datasource:
+    url: jdbc:postgresql://localhost:25432/postgres
+    hikari:
+      username: postgres
+      password: test1234
+
+log:
+  config:
+    path: ./logs
+    filename: kcgsa-system
+    errFileName: kcgsa-system-error
+    historyLimitDays: 30
+    errHistoryLimitDays: 90

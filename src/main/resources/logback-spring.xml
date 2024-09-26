@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configuration scan="true" scanPeriod="60 seconds">
+
+    <include resource="org/springframework/boot/logging/logback/defaults.xml"/>
+
+    <springProperty scope="context" name="LOG_PATH" source="log.config.path"/>
+    <springProperty scope="context" name="LOG_FILE_NAME" source="log.config.filename"/>
+    <springProperty scope="context" name="ERR_LOG_FILE_NAME" source="log.config.err-file-name"/>
+    <springProperty scope="context" name="LOG_HISTORY_LIMIT_DAY" source="log.config.history-limit-days"/>
+    <springProperty scope="context" name="ERR_LOG_HISTORY_LIMIT_DAY" source="log.config.err-history-limit-days"/>
+
+    <appender name="STDOUT" class="ch.qos.logback.core.ConsoleAppender">
+        <encoder>
+            <charset>${CONSOLE_LOG_CHARSET}</charset>
+            <pattern>${CONSOLE_LOG_PATTERN}</pattern>
+        </encoder>
+    </appender>
+
+    <appender name="dailyRollingFileAppender" class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <file>${LOG_PATH}/${LOG_FILE_NAME}.log</file>
+        <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+            <maxHistory>${LOG_HISTORY_LIMIT_DAY}</maxHistory>
+            <fileNamePattern>${LOG_PATH}/${LOG_FILE_NAME}.%d{yyyyMMdd}-%i.log</fileNamePattern>
+            <timeBasedFileNamingAndTriggeringPolicy class="ch.qos.logback.core.rolling.SizeAndTimeBasedFNATP">
+                <maxFileSize>10MB</maxFileSize>
+            </timeBasedFileNamingAndTriggeringPolicy>
+        </rollingPolicy>
+        <encoder>
+            <charset>${FILE_LOG_CHARSET}</charset>
+            <pattern>${FILE_LOG_PATTERN}</pattern>
+        </encoder>
+    </appender>
+
+    <appender name="dailyRollingErrFileAppender" class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <filter class="ch.qos.logback.classic.filter.LevelFilter">
+            <!-- 오직 Error 레벨만 트래킹 -->
+            <level>error</level>
+            <onMatch>ACCEPT</onMatch>
+            <onMismatch>DENY</onMismatch>
+        </filter>
+        <file>${LOG_PATH}/${ERR_LOG_FILE_NAME}.log</file>
+        <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+            <maxHistory>${ERR_LOG_HISTORY_LIMIT_DAY}</maxHistory>
+            <fileNamePattern>${LOG_PATH}/${ERR_LOG_FILE_NAME}.%d{yyyyMMdd}-%i.log</fileNamePattern>
+            <timeBasedFileNamingAndTriggeringPolicy class="ch.qos.logback.core.rolling.SizeAndTimeBasedFNATP">
+                <maxFileSize>10MB</maxFileSize>
+            </timeBasedFileNamingAndTriggeringPolicy>
+        </rollingPolicy>
+        <encoder>
+            <charset>${FILE_LOG_CHARSET}</charset>
+            <pattern>${FILE_LOG_PATTERN}</pattern>
+        </encoder>
+    </appender>
+
+    <springProfile name="local">
+        <root level="INFO">
+            <appender-ref ref="STDOUT"/>
+            <appender-ref ref="dailyRollingFileAppender"/>
+            <appender-ref ref="dailyRollingErrFileAppender"/>
+        </root>
+
+        <logger name="reactor.netty.http.client.HttpClient" level="DEBUG" additivity="false">
+            <appender-ref ref="STDOUT"/>
+        </logger>
+    </springProfile>
+
+</configuration>
