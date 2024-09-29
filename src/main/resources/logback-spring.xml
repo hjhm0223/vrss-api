@@ -4,7 +4,7 @@
     <include resource="org/springframework/boot/logging/logback/defaults.xml"/>
 
     <springProperty scope="context" name="LOG_PATH" source="log.config.path"/>
-    <springProperty scope="context" name="LOG_FILE_NAME" source="log.config.filename"/>
+    <springProperty scope="context" name="LOG_FILE_NAME" source="log.config.file-name"/>
     <springProperty scope="context" name="ERR_LOG_FILE_NAME" source="log.config.err-file-name"/>
     <springProperty scope="context" name="LOG_HISTORY_LIMIT_DAY" source="log.config.history-limit-days"/>
     <springProperty scope="context" name="ERR_LOG_HISTORY_LIMIT_DAY" source="log.config.err-history-limit-days"/>
@@ -55,8 +55,6 @@
     <springProfile name="local">
         <root level="INFO">
             <appender-ref ref="STDOUT"/>
-            <appender-ref ref="dailyRollingFileAppender"/>
-            <appender-ref ref="dailyRollingErrFileAppender"/>
         </root>
 
         <logger name="reactor.netty.http.client.HttpClient" level="DEBUG" additivity="false">

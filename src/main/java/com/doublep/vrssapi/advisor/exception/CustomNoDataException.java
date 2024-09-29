@@ -1,4 +1,4 @@
-package com.doublep.kcgsasystem.advisor.exception;
+package com.doublep.vrssapi.advisor.exception;
 
 /**
  * Custom No Data Exception

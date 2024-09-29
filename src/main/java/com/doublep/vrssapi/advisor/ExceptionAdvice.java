@@ -1,7 +1,8 @@
-package com.doublep.kcgsasystem.advisor;
+package com.doublep.vrssapi.advisor;
 
-import com.doublep.kcgsasystem.advisor.exception.CustomBadRequestException;
-import com.doublep.kcgsasystem.advisor.exception.CustomNoDataException;
+import com.doublep.vrssapi.advisor.exception.CustomBadRequestException;
+import com.doublep.vrssapi.advisor.exception.CustomNoDataException;
+import com.doublep.vrssapi.advisor.exception.CustomSvmpException;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -17,10 +18,10 @@ import org.springframework.web.bind.annotation.RestControllerAdvice;
  *
  */
 @Slf4j
-@RestControllerAdvice(basePackages = "com.doublep.kcgsasystem.controller")
+@RestControllerAdvice(basePackages = "com.doublep.vrssapi.controller")
 public class ExceptionAdvice {
 
-    @ExceptionHandler({Exception.class, RuntimeException.class})
+    @ExceptionHandler({Exception.class, RuntimeException.class, CustomSvmpException.class})
     @ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
     private ResponseEntity<?> internalServerErrorException(Exception exception) {
         exception.printStackTrace();

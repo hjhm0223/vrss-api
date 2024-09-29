@@ -1,4 +1,4 @@
-package com.doublep.kcgsasystem.mapper;
+package com.doublep.vrssapi.mapper;
 
 import org.apache.ibatis.annotations.Mapper;
 

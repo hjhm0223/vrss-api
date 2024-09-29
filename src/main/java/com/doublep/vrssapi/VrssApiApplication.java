@@ -1,13 +1,13 @@
-package com.doublep.kcgsasystem;
+package com.doublep.vrssapi;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 @SpringBootApplication
-public class KcgsaSystemApplication {
+public class VrssApiApplication {
 
     public static void main(String[] args) {
-        SpringApplication.run(KcgsaSystemApplication.class, args);
+        SpringApplication.run(VrssApiApplication.class, args);
     }
 
 }

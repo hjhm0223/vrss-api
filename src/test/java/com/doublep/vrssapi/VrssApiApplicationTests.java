@@ -1,10 +1,10 @@
-package com.doublep.kcgsasystem;
+package com.doublep.vrssapi;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 
 @SpringBootTest
-class KcgsaSystemApplicationTests {
+class VrssApiApplicationTests {
 
     @Test
     void contextLoads() {

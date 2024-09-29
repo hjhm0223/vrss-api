@@ -6,12 +6,17 @@ spring:
     url: jdbc:postgresql://localhost:25432/postgres
     hikari:
       username: postgres
-      password: test1234
+      password: 1234
 
 log:
   config:
     path: ./logs
-    filename: kcgsa-system
-    errFileName: kcgsa-system-error
+    fileName: vrss-api
+    errFileName: vrss-api-error
     historyLimitDays: 30
     errHistoryLimitDays: 90
+
+api:
+  svmp:
+    baseUrl: https://svmp.seavantage.com
+    authCode: ZGV2ZWxvcEBsaWZlbWVudG9ycy5jby5rcjpsaWZlbWVudG9yczIwQCM=
