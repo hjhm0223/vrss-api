@@ -20,3 +20,6 @@ api:
   svmp:
     baseUrl: https://svmp.seavantage.com
     authCode: ZGV2ZWxvcEBsaWZlbWVudG9ycy5jby5rcjpsaWZlbWVudG9yczIwQCM=
+
+file:
+  path: /Users/hyunjeeoh/data/

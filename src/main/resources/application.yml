@@ -2,4 +2,12 @@ spring:
   profiles:
     active: local
 
-
+mybatis:
+  configuration:
+    cache-enabled: true
+    use-generated-keys: true
+    default-executor-type: reuse
+    default-statement-timeout: 5000
+    call-setters-on-nulls: true
+    map-underscore-to-camel-case: true
+  type-aliases-package: com.doublep.vrssapi.model

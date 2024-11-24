@@ -1,0 +1,150 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.doublep.vrssapi.mapper.AisShipDataLastMapper">
+
+    <insert id="upsertAisShipDataLast" parameterType="AisShipData">
+        INSERT INTO ais_ship_data_last (
+        timestamp
+        , mmsi_process
+        , mmsi
+        , imo_no
+        , mmsi_orgin
+        , imo_no_orgin
+        , position_prcss_sttus_ty
+        , static_prcss_sttus_ty
+        , mapping_prcss_sttus_ty
+        , clstr_total
+        , cret_dt
+        , updt_dt
+        , ais_ver
+        , call_sign
+        , ship_nm
+        , ship_type
+        , ship_dim_a
+        , ship_dim_b
+        , ship_dim_c
+        , ship_dim_d
+        , fixing_device_se
+        , eta
+        , max_draught
+        , destination
+        , static_rcv_dt
+        , lc_rcv_dt
+        , static_message_no
+        , lc_message_no
+        , dte_flag
+        , ais_channel
+        , repeat_idct
+        , nvg_sttus
+        , rot
+        , sog
+        , pos_accrcy
+        , lo_lo
+        , la_la
+        , cog
+        , heading
+        , specl_manuv_idct
+        , raim_flag
+        , cmmnc_sttus
+        , packet_id_s
+        , ais_class
+        , rcord_dt
+        , clstr_count
+        )
+        VALUES
+            (
+            #{timestamp}
+            , #{mmsiProcess}
+            , #{mmsi}
+            , #{imoNo}
+            , #{mmsiOrgin}
+            , #{imoNoOrgin}
+            , #{positionPrcssSttusTy}
+            , #{staticPrcssSttusTy}
+            , #{mappingPrcssSttusTy}
+            , #{clstrTotal}
+            , CURRENT_TIMESTAMP
+            , CURRENT_TIMESTAMP
+            , #{aisVer}
+            , #{callSign}
+            , #{shipNm}
+            , #{shipType}
+            , #{shipDimA}
+            , #{shipDimB}
+            , #{shipDimC}
+            , #{shipDimD}
+            , #{fixingDeviceSe}
+            , #{eta}
+            , #{maxDraught}
+            , #{destination}
+            , #{staticRcvDt}
+            , #{lcRcvDt}
+            , #{staticMessageNo}
+            , #{lcMessageNo}
+            , #{dteFlag}
+            , #{aisChannel}
+            , #{repeatIdct}
+            , #{nvgSttus}
+            , #{rot}
+            , #{sog}
+            , #{posAccrcy}
+            , #{loLo}
+            , #{laLa}
+            , #{cog}
+            , #{heading}
+            , #{speclManuvIdct}
+            , #{raimFlag}
+            , #{cmmncSttus}
+            , #{packetIds}
+            , #{aisClass}
+            , #{rcordDt}
+            , #{clstrCount}
+            )
+        ON CONFLICT (mmsi_process) DO UPDATE SET
+            timestamp = COALESCE(EXCLUDED.timestamp, ais_ship_data_last.timestamp)
+            , mmsi = COALESCE(EXCLUDED.mmsi, ais_ship_data_last.mmsi)
+            , mmsi_orgin = COALESCE(EXCLUDED.mmsi_orgin, ais_ship_data_last.mmsi_orgin)
+            , imo_no_orgin = COALESCE(EXCLUDED.imo_no_orgin, ais_ship_data_last.imo_no_orgin)
+            , position_prcss_sttus_ty = COALESCE(EXCLUDED.position_prcss_sttus_ty, ais_ship_data_last.position_prcss_sttus_ty)
+            , static_prcss_sttus_ty = COALESCE(EXCLUDED.static_prcss_sttus_ty, ais_ship_data_last.static_prcss_sttus_ty)
+            , mapping_prcss_sttus_ty = COALESCE(EXCLUDED.mapping_prcss_sttus_ty, ais_ship_data_last.mapping_prcss_sttus_ty)
+            , clstr_total = COALESCE(EXCLUDED.clstr_total, ais_ship_data_last.clstr_total)
+            , ais_ver = COALESCE(EXCLUDED.ais_ver, ais_ship_data_last.ais_ver)
+            , call_sign = COALESCE(EXCLUDED.call_sign, ais_ship_data_last.call_sign)
+            , ship_nm = COALESCE(EXCLUDED.ship_nm, ais_ship_data_last.ship_nm)
+            , ship_type = COALESCE(EXCLUDED.ship_type, ais_ship_data_last.ship_type)
+            , ship_dim_a = COALESCE(EXCLUDED.ship_dim_a, ais_ship_data_last.ship_dim_a)
+            , ship_dim_b = COALESCE(EXCLUDED.ship_dim_b, ais_ship_data_last.ship_dim_b)
+            , ship_dim_c = COALESCE(EXCLUDED.ship_dim_c, ais_ship_data_last.ship_dim_c)
+            , ship_dim_d = COALESCE(EXCLUDED.ship_dim_d, ais_ship_data_last.ship_dim_d)
+            , fixing_device_se = COALESCE(EXCLUDED.fixing_device_se, ais_ship_data_last.fixing_device_se)
+            , eta = COALESCE(EXCLUDED.eta, ais_ship_data_last.eta)
+            , max_draught = COALESCE(EXCLUDED.max_draught, ais_ship_data_last.max_draught)
+            , destination = COALESCE(EXCLUDED.destination, ais_ship_data_last.destination)
+            , static_rcv_dt = COALESCE(EXCLUDED.static_rcv_dt, ais_ship_data_last.static_rcv_dt)
+            , lc_rcv_dt = COALESCE(EXCLUDED.lc_rcv_dt, ais_ship_data_last.lc_rcv_dt)
+            , static_message_no = COALESCE(EXCLUDED.static_message_no, ais_ship_data_last.static_message_no)
+            , lc_message_no = COALESCE(EXCLUDED.lc_message_no, ais_ship_data_last.lc_message_no)
+            , dte_flag = COALESCE(EXCLUDED.dte_flag, ais_ship_data_last.dte_flag)
+            , ais_channel = COALESCE(EXCLUDED.ais_channel, ais_ship_data_last.ais_channel)
+            , repeat_idct = COALESCE(EXCLUDED.repeat_idct, ais_ship_data_last.repeat_idct)
+            , nvg_sttus = COALESCE(EXCLUDED.nvg_sttus, ais_ship_data_last.nvg_sttus)
+            , rot = COALESCE(EXCLUDED.rot, ais_ship_data_last.rot)
+            , sog = COALESCE(EXCLUDED.sog, ais_ship_data_last.sog)
+            , pos_accrcy = COALESCE(EXCLUDED.pos_accrcy, ais_ship_data_last.pos_accrcy)
+            , lo_lo = COALESCE(EXCLUDED.lo_lo, ais_ship_data_last.lo_lo)
+            , la_la = COALESCE(EXCLUDED.la_la, ais_ship_data_last.la_la)
+            , cog = COALESCE(EXCLUDED.cog, ais_ship_data_last.cog)
+            , heading = COALESCE(EXCLUDED.heading, ais_ship_data_last.heading)
+            , specl_manuv_idct = COALESCE(EXCLUDED.specl_manuv_idct, ais_ship_data_last.specl_manuv_idct)
+            , raim_flag = COALESCE(EXCLUDED.raim_flag, ais_ship_data_last.raim_flag)
+            , cmmnc_sttus = COALESCE(EXCLUDED.cmmnc_sttus, ais_ship_data_last.cmmnc_sttus)
+            , packet_id_s = COALESCE(EXCLUDED.packet_id_s, ais_ship_data_last.packet_id_s)
+            , ais_class = COALESCE(EXCLUDED.ais_class, ais_ship_data_last.ais_class)
+            , rcord_dt = COALESCE(EXCLUDED.rcord_dt, ais_ship_data_last.rcord_dt)
+            , clstr_count = COALESCE(EXCLUDED.clstr_count, ais_ship_data_last.clstr_count)
+            , updt_dt = CURRENT_TIMESTAMP
+    </insert>
+
+</mapper>

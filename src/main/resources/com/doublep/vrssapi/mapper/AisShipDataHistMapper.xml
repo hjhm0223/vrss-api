@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.doublep.vrssapi.mapper.AisShipDataHistMapper">
+
+    <insert id="insertAisShipDataHist" parameterType="AisShipData">
+        INSERT INTO ais_ship_data_hist (
+             timestamp
+           , mmsi_process
+           , mmsi
+           , imo_no
+           , mmsi_orgin
+           , imo_no_orgin
+           , position_prcss_sttus_ty
+           , static_prcss_sttus_ty
+           , mapping_prcss_sttus_ty
+           , clstr_total
+           , cret_dt
+           , updt_dt
+           , ais_ver
+           , call_sign
+           , ship_nm
+           , ship_type
+           , ship_dim_a
+           , ship_dim_b
+           , ship_dim_c
+           , ship_dim_d
+           , fixing_device_se
+           , eta
+           , max_draught
+           , destination
+           , static_rcv_dt
+           , lc_rcv_dt
+           , static_message_no
+           , lc_message_no
+           , dte_flag
+           , ais_channel
+           , repeat_idct
+           , nvg_sttus
+           , rot
+           , sog
+           , pos_accrcy
+           , lo_lo
+           , la_la
+           , cog
+           , heading
+           , specl_manuv_idct
+           , raim_flag
+           , cmmnc_sttus
+           , packet_id_s
+           , ais_class
+           , rcord_dt
+           , clstr_count
+        )
+        VALUES
+            (
+            #{timestamp}
+            , #{mmsiProcess}
+            , #{mmsi}
+            , #{imoNo}
+            , #{mmsiOrgin}
+            , #{imoNoOrgin}
+            , #{positionPrcssSttusTy}
+            , #{staticPrcssSttusTy}
+            , #{mappingPrcssSttusTy}
+            , #{clstrTotal}
+            , CURRENT_TIMESTAMP
+            , CURRENT_TIMESTAMP
+            , #{aisVer}
+            , #{callSign}
+            , #{shipNm}
+            , #{shipType}
+            , #{shipDimA}
+            , #{shipDimB}
+            , #{shipDimC}
+            , #{shipDimD}
+            , #{fixingDeviceSe}
+            , #{eta}
+            , #{maxDraught}
+            , #{destination}
+            , #{staticRcvDt}
+            , #{lcRcvDt}
+            , #{staticMessageNo}
+            , #{lcMessageNo}
+            , #{dteFlag}
+            , #{aisChannel}
+            , #{repeatIdct}
+            , #{nvgSttus}
+            , #{rot}
+            , #{sog}
+            , #{posAccrcy}
+            , #{loLo}
+            , #{laLa}
+            , #{cog}
+            , #{heading}
+            , #{speclManuvIdct}
+            , #{raimFlag}
+            , #{cmmncSttus}
+            , #{packetIds}
+            , #{aisClass}
+            , #{rcordDt}
+            , #{clstrCount}
+        )
+    </insert>
+
+</mapper>

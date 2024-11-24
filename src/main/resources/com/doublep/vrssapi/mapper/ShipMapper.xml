@@ -1,0 +1,145 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.doublep.vrssapi.mapper.ShipMapper">
+
+    <insert id="upsertShip" parameterType="Ship">
+        INSERT INTO ship (
+            ship_id
+            , ship_source_type
+            , imo_no
+            , mmsi
+            , vpass_id
+            , fisherboat_no
+            , vts_id
+            , call_sign
+            , ship_nm
+            , ship_alias_nm
+            , ship_type
+            , ship_type_size
+            , ship_type_cargo
+            , ship_image
+            , built
+            , dwt
+            , hull_type
+            , gt
+            , destination
+            , eta
+            , ship_status_type
+            , built_by
+            , built_at
+            , loa
+            , depth_m
+            , max_draught_m
+            , engine_built_by
+            , designed_by
+            , service_speed
+            , updt_dt
+            , regist_dt
+            , register_id
+            , use_yn
+            , valid_ship_code
+            , beneficial_owner
+            , commercial_operator
+            , registered_owner
+            , technical_manager
+            , third_party_operator
+            , nominal_owner
+            , ism_manager
+            , breadth
+            , teu_capacity
+            , liquid_capacity
+        )
+        VALUES (
+            #{shipId}
+            , #{shipSourceType}
+            , #{imoNo}
+            , #{mmsi}
+            , #{vpassId}
+            , #{fisherboatNo}
+            , #{vtsId}
+            , #{callSign}
+            , #{shipNm}
+            , #{shipAliasNm}
+            , #{shipType}
+            , #{shipTypeSize}
+            , #{shipTypeCargo}
+            , #{shipImage}
+            , #{built}
+            , #{dwt}
+            , #{hullType}
+            , #{gt}
+            , #{destination}
+            , #{eta}
+            , #{shipStatusType}
+            , #{builtBy}
+            , #{builtAt}
+            , #{loa}
+            , #{depthM}
+            , #{maxDraughtM}
+            , #{engineBuiltBy}
+            , #{designedBy}
+            , #{serviceSpeed}
+            , CURRENT_TIMESTAMP
+            , #{registDt}
+            , #{registerId}
+            , #{useYn}
+            , #{validShipCode}
+            , #{beneficialOwner}
+            , #{commercialOperator}
+            , #{registeredOwner}
+            , #{technicalManager}
+            , #{thirdPartyOperator}
+            , #{nominalOwner}
+            , #{ismManager}
+            , #{breadth}
+            , #{teuCapacity}
+            , #{liquidCapacity}
+            )
+            ON CONFLICT (SHIP_ID) DO UPDATE SET
+                ship_source_type = COALESCE(EXCLUDED.ship_source_type, ship.ship_source_type)
+                , imo_no = COALESCE(EXCLUDED.imo_no, ship.imo_no)
+                , mmsi = COALESCE(EXCLUDED.mmsi, ship.mmsi)
+                , vpass_id = COALESCE(EXCLUDED.vpass_id, ship.vpass_id)
+                , fisherboat_no = COALESCE(EXCLUDED.fisherboat_no, ship.fisherboat_no)
+                , vts_id = COALESCE(EXCLUDED.vts_id, ship.vts_id)
+                , call_sign = COALESCE(EXCLUDED.call_sign, ship.call_sign)
+                , ship_nm = COALESCE(EXCLUDED.ship_nm, ship.ship_nm)
+                , ship_alias_nm = COALESCE(EXCLUDED.ship_alias_nm, ship.ship_alias_nm)
+                , ship_type = COALESCE(EXCLUDED.ship_type, ship.ship_type)
+                , ship_type_size = COALESCE(EXCLUDED.ship_type_size, ship.ship_type_size)
+                , ship_type_cargo = COALESCE(EXCLUDED.ship_type_cargo, ship.ship_type_cargo)
+                , ship_image = COALESCE(EXCLUDED.ship_image, ship.ship_image)
+                , built = COALESCE(EXCLUDED.built, ship.built)
+                , dwt = COALESCE(EXCLUDED.dwt, ship.dwt)
+                , hull_type = COALESCE(EXCLUDED.hull_type, ship.hull_type)
+                , gt = COALESCE(EXCLUDED.gt, ship.gt)
+                , destination = COALESCE(EXCLUDED.destination, ship.destination)
+                , eta = COALESCE(EXCLUDED.eta, ship.eta)
+                , ship_status_type = COALESCE(EXCLUDED.ship_status_type, ship.ship_status_type)
+                , built_by = COALESCE(EXCLUDED.built_by, ship.built_by)
+                , built_at = COALESCE(EXCLUDED.built_at, ship.built_at)
+                , loa = COALESCE(EXCLUDED.loa, ship.loa)
+                , depth_m = COALESCE(EXCLUDED.depth_m, ship.depth_m)
+                , max_draught_m = COALESCE(EXCLUDED.max_draught_m, ship.max_draught_m)
+                , engine_built_by = COALESCE(EXCLUDED.engine_built_by, ship.engine_built_by)
+                , designed_by = COALESCE(EXCLUDED.designed_by, ship.designed_by)
+                , service_speed = COALESCE(EXCLUDED.service_speed, ship.service_speed)
+                , updt_dt = CURRENT_TIMESTAMP
+                , regist_dt = COALESCE(EXCLUDED.regist_dt, ship.regist_dt)
+                , register_id = COALESCE(EXCLUDED.register_id, ship.register_id)
+                , use_yn = COALESCE(EXCLUDED.use_yn, ship.use_yn)
+                , valid_ship_code = COALESCE(EXCLUDED.valid_ship_code, ship.valid_ship_code)
+                , beneficial_owner = COALESCE(EXCLUDED.beneficial_owner, ship.beneficial_owner)
+                , commercial_operator = COALESCE(EXCLUDED.commercial_operator, ship.commercial_operator)
+                , registered_owner = COALESCE(EXCLUDED.registered_owner, ship.registered_owner)
+                , technical_manager = COALESCE(EXCLUDED.technical_manager, ship.technical_manager)
+                , third_party_operator = COALESCE(EXCLUDED.third_party_operator, ship.third_party_operator)
+                , nominal_owner = COALESCE(EXCLUDED.nominal_owner, ship.nominal_owner)
+                , ism_manager = COALESCE(EXCLUDED.ism_manager, ship.ism_manager)
+                , breadth = COALESCE(EXCLUDED.breadth, ship.breadth)
+                , teu_capacity = COALESCE(EXCLUDED.teu_capacity, ship.teu_capacity)
+                , liquid_capacity = COALESCE(EXCLUDED.liquid_capacity, ship.liquid_capacity)
+    </insert>
+
+</mapper>

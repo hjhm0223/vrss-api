@@ -8,13 +8,17 @@ import java.time.LocalDateTime;
 public class Ship {
 
     private String shipId;
+    private String shipSourceType;
     private String imoNo;
     private String mmsi;
+    private String vpassId;
+    private String fisherboatNo;
+    private String vtsId;
     private String callSign;
-    private String shipName;
-    private String shipAliasName;
+    private String shipNm;
+    private String shipAliasNm;
     private String shipType;
-    private String shipTypeBySize;
+    private String shipTypeSize;
     private String shipTypeCargo;
     private String shipImage;
     private Integer built;
@@ -22,32 +26,30 @@ public class Ship {
     private String hullType;
     private Integer gt;
     private String destination;
-    private LocalDateTime eta;
+    private String eta;
     private String shipStatusType;
     private String builtBy;
     private String builtAt;
     private Double loa;
-    private Double depth;
-    private Double maxDraught;
+    private Double depthM;
+    private Double maxDraughtM;
     private String engineBuiltBy;
     private String designedBy;
     private Double serviceSpeed;
-    private String nationCode;
+    private LocalDateTime updtDt;
+    private LocalDateTime registDt;
+    private String registerId;
     private String useYn;
-    private Position position;
-    private SiteShip siteShip;
-    private Double breath;
+    private String validShipCode;
+    private String beneficialOwner;
+    private String commercialOperator;
+    private String registeredOwner;
+    private String technicalManager;
+    private String thirdPartyOperator;
+    private String nominalOwner;
+    private String ismManager;
+    private Double breadth;
     private Integer teuCapacity;
     private Integer liquidCapacity;
-
-    @Data
-    public static class SiteShip {
-
-        private String siteId;
-        private String shipId;
-        private String registerId;
-        private LocalDateTime registerDateTIme;
-
-    }
 
 }

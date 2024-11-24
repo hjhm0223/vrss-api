@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.doublep.vrssapi.mapper.AisFileCollectHistMapper">
+
+    <select id="countAisFileCollectHistList">
+        SELECT COUNT(*)
+        FROM ais_file_collect_hist
+    </select>
+
+    <select id="selectAisFileCollectHistList" parameterType="CommonRequest" resultType="AisFileCollectHist">
+        SELECT
+            file_name
+            , file_collect_timestamp
+        FROM ais_file_collect_hist
+        ORDER BY cret_dt DESC
+        LIMIT #{limit} OFFSET #{offset}
+    </select>
+
+    <insert id="insertAisFileCollectHist" parameterType="AisFileCollectHist">
+        INSERT INTO ais_file_collect_hist (
+            file_name
+          , file_collect_timestamp
+          , cret_dt
+        ) VALUES (
+            #{fileName}
+            , #{fileCollectTimestamp}
+            , CURRENT_TIMESTAMP
+        )
+    </insert>
+
+</mapper>
