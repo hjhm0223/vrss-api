@@ -3,6 +3,57 @@
 
 <mapper namespace="com.doublep.vrssapi.mapper.ShipMapper">
 
+    <select id="selectShip" parameterType="java.lang.String" resultType="Ship">
+        SELECT ship_id
+             , ship_source_type
+             , imo_no
+             , mmsi
+             , vpass_id
+             , fisherboat_no
+             , vts_id
+             , sv_ship_id
+             , sv_process_status
+             , call_sign
+             , ship_nm
+             , ship_alias_nm
+             , ship_type
+             , ship_type_size
+             , ship_type_cargo
+             , ship_image
+             , built
+             , dwt
+             , hull_type
+             , gt
+             , destination
+             , eta
+             , ship_status_type
+             , built_by
+             , built_at
+             , loa
+             , depth_m
+             , max_draught_m
+             , engine_built_by
+             , designed_by
+             , service_speed
+             , updt_dt
+             , regist_dt
+             , register_id
+             , use_yn
+             , valid_ship_code
+             , beneficial_owner
+             , commercial_operator
+             , registered_owner
+             , technical_manager
+             , third_party_operator
+             , nominal_owner
+             , ism_manager
+             , breadth
+             , teu_capacity
+             , liquid_capacity
+        FROM ship
+        WHERE ship_id = #{shipId}
+    </select>
+
     <insert id="upsertShip" parameterType="Ship">
         INSERT INTO ship (
             ship_id
@@ -12,6 +63,8 @@
             , vpass_id
             , fisherboat_no
             , vts_id
+            , sv_ship_id
+            , sv_process_status
             , call_sign
             , ship_nm
             , ship_alias_nm
@@ -58,6 +111,8 @@
             , #{vpassId}
             , #{fisherboatNo}
             , #{vtsId}
+            , #{svShipId}
+            , #{svProcessStatus}
             , #{callSign}
             , #{shipNm}
             , #{shipAliasNm}
@@ -81,7 +136,7 @@
             , #{designedBy}
             , #{serviceSpeed}
             , CURRENT_TIMESTAMP
-            , #{registDt}
+            , CURRENT_TIMESTAMP
             , #{registerId}
             , #{useYn}
             , #{validShipCode}
@@ -103,6 +158,8 @@
                 , vpass_id = COALESCE(EXCLUDED.vpass_id, ship.vpass_id)
                 , fisherboat_no = COALESCE(EXCLUDED.fisherboat_no, ship.fisherboat_no)
                 , vts_id = COALESCE(EXCLUDED.vts_id, ship.vts_id)
+                , sv_ship_id = COALESCE(EXCLUDED.sv_ship_id, ship.sv_ship_id)
+                , sv_process_status = COALESCE(EXCLUDED.sv_process_status, ship.sv_process_status)
                 , call_sign = COALESCE(EXCLUDED.call_sign, ship.call_sign)
                 , ship_nm = COALESCE(EXCLUDED.ship_nm, ship.ship_nm)
                 , ship_alias_nm = COALESCE(EXCLUDED.ship_alias_nm, ship.ship_alias_nm)
@@ -141,5 +198,206 @@
                 , teu_capacity = COALESCE(EXCLUDED.teu_capacity, ship.teu_capacity)
                 , liquid_capacity = COALESCE(EXCLUDED.liquid_capacity, ship.liquid_capacity)
     </insert>
+
+    <insert id="bulkUpsertShip" parameterType="list">
+        INSERT INTO ship (
+        ship_id,
+        ship_source_type,
+        imo_no,
+        mmsi,
+        vpass_id,
+        fisherboat_no,
+        vts_id,
+        sv_ship_id,
+        sv_process_status,
+        call_sign,
+        ship_nm,
+        ship_alias_nm,
+        ship_type,
+        ship_type_size,
+        ship_type_cargo,
+        ship_image,
+        built,
+        dwt,
+        hull_type,
+        gt,
+        destination,
+        eta,
+        ship_status_type,
+        built_by,
+        built_at,
+        loa,
+        depth_m,
+        max_draught_m,
+        engine_built_by,
+        designed_by,
+        service_speed,
+        updt_dt,
+        regist_dt,
+        register_id,
+        use_yn,
+        valid_ship_code,
+        beneficial_owner,
+        commercial_operator,
+        registered_owner,
+        technical_manager,
+        third_party_operator,
+        nominal_owner,
+        ism_manager,
+        breadth,
+        teu_capacity,
+        liquid_capacity
+        )
+        VALUES
+        <foreach collection="list" item="item" separator=",">
+            (
+            #{item.shipId},
+            #{item.shipSourceType},
+            #{item.imoNo},
+            #{item.mmsi},
+            #{item.vpassId},
+            #{item.fisherboatNo},
+            #{item.vtsId},
+            #{item.svShipId},
+            #{item.svProcessStatus},
+            #{item.callSign},
+            #{item.shipNm},
+            #{item.shipAliasNm},
+            #{item.shipType},
+            #{item.shipTypeSize},
+            #{item.shipTypeCargo},
+            #{item.shipImage},
+            #{item.built},
+            #{item.dwt},
+            #{item.hullType},
+            #{item.gt},
+            #{item.destination},
+            #{item.eta},
+            #{item.shipStatusType},
+            #{item.builtBy},
+            #{item.builtAt},
+            #{item.loa},
+            #{item.depthM},
+            #{item.maxDraughtM},
+            #{item.engineBuiltBy},
+            #{item.designedBy},
+            #{item.serviceSpeed},
+            CURRENT_TIMESTAMP,
+            CURRENT_TIMESTAMP,
+            #{item.registerId},
+            #{item.useYn},
+            #{item.validShipCode},
+            #{item.beneficialOwner},
+            #{item.commercialOperator},
+            #{item.registeredOwner},
+            #{item.technicalManager},
+            #{item.thirdPartyOperator},
+            #{item.nominalOwner},
+            #{item.ismManager},
+            #{item.breadth},
+            #{item.teuCapacity},
+            #{item.liquidCapacity}
+            )
+        </foreach>
+        ON CONFLICT (ship_id) DO UPDATE SET
+        ship_source_type = COALESCE(EXCLUDED.ship_source_type, ship.ship_source_type),
+        imo_no = COALESCE(EXCLUDED.imo_no, ship.imo_no),
+        mmsi = COALESCE(EXCLUDED.mmsi, ship.mmsi),
+        vpass_id = COALESCE(EXCLUDED.vpass_id, ship.vpass_id),
+        fisherboat_no = COALESCE(EXCLUDED.fisherboat_no, ship.fisherboat_no),
+        vts_id = COALESCE(EXCLUDED.vts_id, ship.vts_id),
+        sv_ship_id = COALESCE(EXCLUDED.sv_ship_id, ship.sv_ship_id),
+        sv_process_status = COALESCE(EXCLUDED.sv_process_status, ship.sv_process_status),
+        call_sign = COALESCE(EXCLUDED.call_sign, ship.call_sign),
+        ship_nm = COALESCE(EXCLUDED.ship_nm, ship.ship_nm),
+        ship_alias_nm = COALESCE(EXCLUDED.ship_alias_nm, ship.ship_alias_nm),
+        ship_type = COALESCE(EXCLUDED.ship_type, ship.ship_type),
+        ship_type_size = COALESCE(EXCLUDED.ship_type_size, ship.ship_type_size),
+        ship_type_cargo = COALESCE(EXCLUDED.ship_type_cargo, ship.ship_type_cargo),
+        ship_image = COALESCE(EXCLUDED.ship_image, ship.ship_image),
+        built = COALESCE(EXCLUDED.built, ship.built),
+        dwt = COALESCE(EXCLUDED.dwt, ship.dwt),
+        hull_type = COALESCE(EXCLUDED.hull_type, ship.hull_type),
+        gt = COALESCE(EXCLUDED.gt, ship.gt),
+        destination = COALESCE(EXCLUDED.destination, ship.destination),
+        eta = COALESCE(EXCLUDED.eta, ship.eta),
+        ship_status_type = COALESCE(EXCLUDED.ship_status_type, ship.ship_status_type),
+        built_by = COALESCE(EXCLUDED.built_by, ship.built_by),
+        built_at = COALESCE(EXCLUDED.built_at, ship.built_at),
+        loa = COALESCE(EXCLUDED.loa, ship.loa),
+        depth_m = COALESCE(EXCLUDED.depth_m, ship.depth_m),
+        max_draught_m = COALESCE(EXCLUDED.max_draught_m, ship.max_draught_m),
+        engine_built_by = COALESCE(EXCLUDED.engine_built_by, ship.engine_built_by),
+        designed_by = COALESCE(EXCLUDED.designed_by, ship.designed_by),
+        service_speed = COALESCE(EXCLUDED.service_speed, ship.service_speed),
+        updt_dt = CURRENT_TIMESTAMP,
+        regist_dt = COALESCE(EXCLUDED.regist_dt, ship.regist_dt),
+        register_id = COALESCE(EXCLUDED.register_id, ship.register_id),
+        use_yn = COALESCE(EXCLUDED.use_yn, ship.use_yn),
+        valid_ship_code = COALESCE(EXCLUDED.valid_ship_code, ship.valid_ship_code),
+        beneficial_owner = COALESCE(EXCLUDED.beneficial_owner, ship.beneficial_owner),
+        commercial_operator = COALESCE(EXCLUDED.commercial_operator, ship.commercial_operator),
+        registered_owner = COALESCE(EXCLUDED.registered_owner, ship.registered_owner),
+        technical_manager = COALESCE(EXCLUDED.technical_manager, ship.technical_manager),
+        third_party_operator = COALESCE(EXCLUDED.third_party_operator, ship.third_party_operator),
+        nominal_owner = COALESCE(EXCLUDED.nominal_owner, ship.nominal_owner),
+        ism_manager = COALESCE(EXCLUDED.ism_manager, ship.ism_manager),
+        breadth = COALESCE(EXCLUDED.breadth, ship.breadth),
+        teu_capacity = COALESCE(EXCLUDED.teu_capacity, ship.teu_capacity),
+        liquid_capacity = COALESCE(EXCLUDED.liquid_capacity, ship.liquid_capacity)
+    </insert>
+
+    <select id="getUnregisteredShipList">
+        SELECT
+            ship_id,
+            ship_source_type,
+            imo_no,
+            mmsi,
+            vpass_id,
+            fisherboat_no,
+            vts_id,
+            sv_ship_id,
+            sv_process_status,
+            call_sign,
+            ship_nm,
+            ship_alias_nm,
+            ship_type,
+            ship_type_size,
+            ship_type_cargo,
+            ship_image,
+            built,
+            dwt,
+            hull_type,
+            gt,
+            destination,
+            eta,
+            ship_status_type,
+            built_by,
+            built_at,
+            loa,
+            depth_m,
+            max_draught_m,
+            engine_built_by,
+            designed_by,
+            service_speed,
+            updt_dt,
+            regist_dt,
+            register_id,
+            use_yn,
+            valid_ship_code,
+            beneficial_owner,
+            commercial_operator,
+            registered_owner,
+            technical_manager,
+            third_party_operator,
+            nominal_owner,
+            ism_manager,
+            breadth,
+            teu_capacity,
+            liquid_capacity
+        FROM ship
+        WHERE sv_process_status IS NULL OR sv_process_status = '0000'
+        ORDER BY updt_dt DESC
+    </select>
 
 </mapper>

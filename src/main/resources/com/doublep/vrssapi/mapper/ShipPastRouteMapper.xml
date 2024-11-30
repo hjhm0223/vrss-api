@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.doublep.vrssapi.mapper.ShipPastRouteMapper">
+
+    <insert id="insertShipPastRoute" parameterType="ShipPastRoute">
+        INSERT INTO ship_past_route (
+            ship_id
+            , request_time
+            , search_begin_time
+            , search_end_time
+            , start_time
+            , arrival_time
+            , start_longitude
+            , start_latitude
+            , arrival_longitude
+            , arrival_latitude
+            , route_distance
+            , route
+        )
+        VALUES (
+            #{shipId}
+            , #{requestTime}
+            , #{searchBeginTime}
+            , #{searchEndTime}
+            , #{startTime}
+            , #{arrivalTime}
+            , #{startLongitude}
+            , #{startLatitude}
+            , #{arrivalLongitude}
+            , #{arrivalLatitude}
+            , #{routeDistance}
+            , #{route, jdbcType=OTHER, typeHandler=com.doublep.vrssapi.util.JsonTypeHandler}
+        )
+    </insert>
+
+</mapper>

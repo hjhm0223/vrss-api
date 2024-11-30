@@ -3,30 +3,55 @@
 
 <mapper namespace="com.doublep.vrssapi.mapper.AisFileCollectHistMapper">
 
-    <select id="countAisFileCollectHistList">
+    <select id="countNotFailedAisFileCollectHistList">
         SELECT COUNT(*)
         FROM ais_file_collect_hist
+        WHERE status != 'failed'
     </select>
 
-    <select id="selectAisFileCollectHistList" parameterType="CommonRequest" resultType="AisFileCollectHist">
+    <select id="getNotFailedAisFileCollectHistList" parameterType="CommonRequest" resultType="AisFileCollectHist">
         SELECT
             file_name
-            , file_collect_timestamp
+             , total_count
+             , status
+             , start_timestamp
+             , end_timestamp
+             , duration
         FROM ais_file_collect_hist
+        WHERE status != 'failed'
         ORDER BY cret_dt DESC
         LIMIT #{limit} OFFSET #{offset}
     </select>
 
-    <insert id="insertAisFileCollectHist" parameterType="AisFileCollectHist">
+    <insert id="insertAisFileCollectHist" parameterType="AisFileCollectHist" useGeneratedKeys="true"
+            keyProperty="fileCollectSeq">
         INSERT INTO ais_file_collect_hist (
             file_name
-          , file_collect_timestamp
+          , total_count
+          , status
+          , start_timestamp
+          , end_timestamp
+          , duration
           , cret_dt
         ) VALUES (
             #{fileName}
-            , #{fileCollectTimestamp}
+            , #{totalCount}
+            , #{status}
+            , #{startTimestamp}
+            , #{endTimestamp}
+            , #{duration}
             , CURRENT_TIMESTAMP
         )
     </insert>
+
+    <update id="updateAisFileCollectHist" parameterType="AisFileCollectHist">
+        UPDATE ais_file_collect_hist
+        SET status = #{status}
+            , total_count = #{totalCount}
+            , end_timestamp = #{endTimestamp}
+            , duration = #{duration}
+            , updt_dt = CURRENT_TIMESTAMP
+        WHERE file_collect_seq = #{fileCollectSeq}
+    </update>
 
 </mapper>

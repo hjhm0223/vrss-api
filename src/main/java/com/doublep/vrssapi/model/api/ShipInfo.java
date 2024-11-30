@@ -1,5 +1,6 @@
-package com.doublep.vrssapi.model;
+package com.doublep.vrssapi.model.api;
 
+import com.doublep.vrssapi.model.Ship;
 import lombok.Data;
 
 import java.time.LocalDateTime;

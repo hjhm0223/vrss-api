@@ -1,4 +1,4 @@
-package com.doublep.vrssapi.model;
+package com.doublep.vrssapi.model.request;
 
 import lombok.*;
 

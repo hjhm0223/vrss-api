@@ -13,7 +13,12 @@ import java.time.LocalDateTime;
 @AllArgsConstructor
 public class AisFileCollectHist {
 
+    private Integer fileCollectSeq;
     private String fileName;
-    private LocalDateTime fileCollectTimestamp;
+    private int totalCount;
+    private String status;
+    private LocalDateTime startTimestamp;
+    private LocalDateTime endTimestamp;
+    private long duration;
 
 }

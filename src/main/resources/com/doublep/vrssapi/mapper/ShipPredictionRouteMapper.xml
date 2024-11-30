@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.doublep.vrssapi.mapper.ShipPredictionRouteMapper">
+
+    <insert id="insertShipPredictionRoute" parameterType="ShipPredictionRoute">
+        INSERT INTO ship_prediction_route (
+            ship_id
+            , request_time
+            , prediction_route_type
+            , standard_prediction_time
+            , start_longitude
+            , start_latitude
+            , arrival_longitude
+            , arrival_latitude
+            , rp_type
+            , rp_requirement_second
+            , route_distance
+            , route_requirement_second
+            , route
+        )
+        VALUES (
+            #{shipId}
+            , #{requestTime}
+            , #{predictionRouteType}
+            , #{standardPredictionTime}
+            , #{startLongitude}
+            , #{startLatitude}
+            , #{arrivalLongitude}
+            , #{arrivalLatitude}
+            , #{rpType}
+            , #{rpRequirementSecond}
+            , #{routeDistance}
+            , #{routeRequirementSecond}
+            , #{route, jdbcType=OTHER, typeHandler=com.doublep.vrssapi.util.JsonTypeHandler}
+        )
+    </insert>
+
+</mapper>

@@ -1,4 +1,4 @@
-package com.doublep.vrssapi.model.response;
+package com.doublep.vrssapi.model.api.response;
 
 import lombok.Data;
 

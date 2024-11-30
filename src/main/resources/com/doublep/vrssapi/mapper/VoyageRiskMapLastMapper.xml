@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.doublep.vrssapi.mapper.VoyageRiskMapLastMapper">
+
+    <select id="selectVoyageRiskMapLastList" resultType="ShipVoyageRiskMap">
+        SELECT longitude
+             , latitude
+             , voyage_risk_map_id
+             , longitude_length
+             , latitude_length
+             , wind_speed
+             , wind_direction
+             , wave_height
+             , wave_direction
+             , relative_humidity
+             , total_column_water_vapor
+             , skin_temperature
+             , voyage_risk_level
+             , tidal_current_speed
+             , tidal_current_direction
+             , typhoon_longitude
+             , typhoon_latitude
+             , typhoon_grade
+	    FROM voyage_risk_map_last
+    </select>
+
+</mapper>

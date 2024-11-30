@@ -14,6 +14,8 @@ public class Ship {
     private String vpassId;
     private String fisherboatNo;
     private String vtsId;
+    private String svShipId;
+    private String svProcessStatus;
     private String callSign;
     private String shipNm;
     private String shipAliasNm;
@@ -51,5 +53,4 @@ public class Ship {
     private Double breadth;
     private Integer teuCapacity;
     private Integer liquidCapacity;
-
 }
