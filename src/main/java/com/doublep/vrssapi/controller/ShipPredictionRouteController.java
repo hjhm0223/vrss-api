@@ -1,6 +1,6 @@
 package com.doublep.vrssapi.controller;
 
-import com.doublep.vrssapi.model.api.Route;
+import com.doublep.vrssapi.model.ShipPredictionRoute;
 import com.doublep.vrssapi.model.request.ShipPredictRouteRequest;
 import com.doublep.vrssapi.service.ShipPredictionRouteService;
 import jakarta.validation.Valid;
@@ -18,7 +18,7 @@ public class ShipPredictionRouteController {
     private final ShipPredictionRouteService shipPredictionRouteService;
 
     @GetMapping
-    public ResponseEntity<Route> getShipPredictTrackList(@Valid ShipPredictRouteRequest shipPredictRouteRequest) {
+    public ResponseEntity<ShipPredictionRoute> getShipPredictTrackList(@Valid ShipPredictRouteRequest shipPredictRouteRequest) {
         return ResponseEntity.ok(shipPredictionRouteService.getShipPredictTrackList(shipPredictRouteRequest));
     }
 

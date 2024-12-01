@@ -86,6 +86,7 @@ public class ShipService {
 
     public void checkUnregisteredShipList() {
         var unregisteredShipList = shipMapper.getUnregisteredShipList();
+        var totalCount = 0;
         for (var ship : unregisteredShipList) {
             var mmsi = ship.getMmsi();
             var imoNo = ship.getImoNo();
@@ -106,6 +107,9 @@ public class ShipService {
                 }
             }
             shipMapper.upsertShip(ship);
+            totalCount++;
         }
+
+        log.info("[ShipService] Register Ship total count ::: {}", totalCount);
     }
 }

@@ -79,7 +79,7 @@ public class AisShipFileService {
 
                     var totalCount = parseAndSaveAisShipData(file);
 
-                    log.info("total count ::: {}", totalCount);
+                    log.info("[FileReadService] AIS file {} total count ::: {}", fileName, totalCount);
                     var endTimestamp = LocalDateTime.now();
                     aisFileCollectHist.setTotalCount(totalCount);
                     aisFileCollectHist.setStatus("end");

@@ -33,7 +33,7 @@ public class ShipPredictionRouteService {
     private final ObjectMapper objectMapper;
 
     @Transactional
-    public Route getShipPredictTrackList(ShipPredictRouteRequest shipPredictRouteRequest) {
+    public ShipPredictionRoute getShipPredictTrackList(ShipPredictRouteRequest shipPredictRouteRequest) {
         var requestTime = LocalDateTime.now();
         var shipId = shipPredictRouteRequest.getShipId();
         if (shipPredictRouteRequest.getDestinationLatitude() == null || shipPredictRouteRequest.getDestinationLongitude() == null) {
@@ -64,7 +64,7 @@ public class ShipPredictionRouteService {
             geometryList.add(feature.getGeometry());
         }
         try {
-            insertShipPredictionRoute(ShipPredictionRoute.builder()
+            var predictionRoute = ShipPredictionRoute.builder()
                     .shipId(shipId)
                     .requestTime(requestTime)
                     .predictionRouteType(MTN)
@@ -78,12 +78,14 @@ public class ShipPredictionRouteService {
                     .routeDistance(properties.getDistance())
                     .routeRequirementSecond((double) Duration.between(properties.getStartDt(), properties.getArvlDateTime()).getSeconds())
                     .route(objectMapper.writeValueAsString(geometryList))
-                    .build());
+                    .build();
+            insertShipPredictionRoute(predictionRoute);
+
+            return predictionRoute;
         } catch (JsonProcessingException e) {
             log.error("JsonProcessingException occurred ::: {}", route);
             throw new CustomJsonProcessingException();
         }
-        return route;
     }
 
     private void insertShipPredictionRoute(ShipPredictionRoute shipPredictionRoute) {

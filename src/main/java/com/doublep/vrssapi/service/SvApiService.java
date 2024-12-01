@@ -17,7 +17,6 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestClient;
 
 import java.time.LocalDateTime;
-import java.util.Arrays;
 import java.util.List;
 import java.util.Objects;
 
@@ -44,7 +43,7 @@ public class SvApiService {
 
     public void saveShipToFleet(String shipId) {
         var request = new FleetRequest();
-        request.setShipIds(Arrays.asList(shipId));
+        request.setShipIds(shipId);
         restClient.post()
                 .uri(uriBuilder -> uriBuilder.path(SVMP_API_FLEET)
                         .queryParams(convert(request))
