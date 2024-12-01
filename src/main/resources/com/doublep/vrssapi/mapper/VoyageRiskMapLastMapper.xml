@@ -3,26 +3,35 @@
 
 <mapper namespace="com.doublep.vrssapi.mapper.VoyageRiskMapLastMapper">
 
-    <select id="selectVoyageRiskMapLastList" resultType="ShipVoyageRiskMap">
-        SELECT longitude
-             , latitude
-             , voyage_risk_map_id
-             , longitude_length
-             , latitude_length
-             , wind_speed
-             , wind_direction
-             , wave_height
-             , wave_direction
-             , relative_humidity
-             , total_column_water_vapor
-             , skin_temperature
-             , voyage_risk_level
-             , tidal_current_speed
-             , tidal_current_direction
-             , typhoon_longitude
-             , typhoon_latitude
-             , typhoon_grade
-	    FROM voyage_risk_map_last
+    <select id="selectVoyageRiskMapLastList" parameterType="ShipVoyageRiskMapRequest" resultType="ShipVoyageRiskMap">
+        WITH base AS (
+            SELECT DISTINCT geometry_base.longitude, geometry_base.latitude
+            FROM geometry_base, ship_prediction_route
+            WHERE geometry_base.longitude BETWEEN #{minLongitude} AND #{maxLongitude}
+                AND geometry_base.latitude BETWEEN #{minLatitude} AND #{maxLatitude}
+                AND st_intersects(geometry_base.geometry, ship_prediction_route.route_geom) = true
+        )
+
+        SELECT vrml.longitude
+             , vrml.latitude
+             , vrml.voyage_risk_map_id
+             , vrml.longitude_length
+             , vrml.latitude_length
+             , vrml.wind_speed
+             , vrml.wind_direction
+             , vrml.wave_height
+             , vrml.wave_direction
+             , vrml.relative_humidity
+             , vrml.total_column_water_vapor
+             , vrml.skin_temperature
+             , vrml.voyage_risk_level
+             , vrml.tidal_current_speed
+             , vrml.tidal_current_direction
+             , vrml.typhoon_longitude
+             , vrml.typhoon_latitude
+             , vrml.typhoon_grade
+	    FROM base
+        LEFT OUTER JOIN voyage_risk_map_last AS vrml ON base.longitude = vrml.longitude AND base.latitude = vrml.latitude
     </select>
 
 </mapper>

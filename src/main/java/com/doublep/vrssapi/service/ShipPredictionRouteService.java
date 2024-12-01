@@ -3,7 +3,6 @@ package com.doublep.vrssapi.service;
 import com.doublep.vrssapi.advisor.exception.CustomJsonProcessingException;
 import com.doublep.vrssapi.mapper.ShipPredictionRouteMapper;
 import com.doublep.vrssapi.model.ShipPredictionRoute;
-import com.doublep.vrssapi.model.api.Route;
 import com.doublep.vrssapi.model.api.request.ShipRouteRequest;
 import com.doublep.vrssapi.model.request.ShipPredictRouteRequest;
 import com.fasterxml.jackson.core.JsonProcessingException;
@@ -15,7 +14,6 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.time.Duration;
 import java.time.LocalDateTime;
-import java.util.ArrayList;
 import java.util.Arrays;
 
 import static com.doublep.vrssapi.constant.PredictionRouteType.MTN;
@@ -59,10 +57,6 @@ public class ShipPredictionRouteService {
         var properties = features.get(0).getProperties();
         var planPoints = properties.getPlanPoints();
 //        planPoints.sort(Comparator.comparing(Route.PlanPoint::getDateTIme));
-        var geometryList = new ArrayList<Route.Geometry>();
-        for (var feature : features) {
-            geometryList.add(feature.getGeometry());
-        }
         try {
             var predictionRoute = ShipPredictionRoute.builder()
                     .shipId(shipId)
@@ -77,7 +71,7 @@ public class ShipPredictionRouteService {
                     .rpRequirementSecond((double) Duration.between(requestTime, LocalDateTime.now()).getSeconds())
                     .routeDistance(properties.getDistance())
                     .routeRequirementSecond((double) Duration.between(properties.getStartDt(), properties.getArvlDateTime()).getSeconds())
-                    .route(objectMapper.writeValueAsString(geometryList))
+                    .route(objectMapper.writeValueAsString(features.get(0).getGeometry()))
                     .build();
             insertShipPredictionRoute(predictionRoute);
 

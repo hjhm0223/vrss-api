@@ -1,6 +1,5 @@
 package com.doublep.vrssapi.model.request;
 
-import com.doublep.vrssapi.model.api.Route;
 import jakarta.validation.constraints.NotEmpty;
 import lombok.Data;
 
@@ -10,8 +9,12 @@ public class ShipVoyageRiskMapRequest {
     @NotEmpty
     private String shipId;
 
-    private Route route;
+    private String route;
     private Double longitude;
     private Double latitude;
+    private Double minLongitude;
+    private Double minLatitude;
+    private Double maxLongitude;
+    private Double maxLatitude;
 
 }
