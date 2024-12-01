@@ -1,0 +1,25 @@
+spring:
+  config:
+    activate:
+      on-profile: tb
+  datasource:
+    url: jdbc:postgresql://147.46.30.134:25432/postgres?currentSchema=gateway
+    hikari:
+      username: seavant
+      password: cnqudwh1!
+
+log:
+  config:
+    path: ./logs
+    fileName: vrss-api
+    errFileName: vrss-api-error
+    historyLimitDays: 30
+    errHistoryLimitDays: 90
+
+api:
+  svmp:
+    baseUrl: https://svmp.seavantage.com
+    authCode: ZGV2ZWxvcEBsaWZlbWVudG9ycy5jby5rcjpsaWZlbWVudG9yczIwQCM=
+
+file:
+  path: /home/seavant/ais_data/
