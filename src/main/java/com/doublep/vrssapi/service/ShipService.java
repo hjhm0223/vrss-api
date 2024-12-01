@@ -6,6 +6,9 @@ import com.doublep.vrssapi.mapper.ShipMapper;
 import com.doublep.vrssapi.model.AisShipData;
 import com.doublep.vrssapi.model.Ship;
 import com.doublep.vrssapi.model.api.request.ShipInfoRequest;
+import com.doublep.vrssapi.model.request.CommonRequest;
+import com.doublep.vrssapi.model.response.ListResponse;
+import com.doublep.vrssapi.model.response.ShipPositionResponse;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.mybatis.spring.SqlSessionTemplate;
@@ -28,11 +31,19 @@ import static org.springframework.util.StringUtils.hasText;
 public class ShipService {
 
     private final ShipMapper shipMapper;
+    private final AisShipDataLastService aisShipDataLastService;
     private final SvApiService svApiService;
     private final SqlSessionTemplate batchSqlSessionTemplate;
 
     public Ship getShip(String shipId) {
         return shipMapper.selectShip(shipId);
+    }
+
+    public ListResponse<ShipPositionResponse> getShipList(CommonRequest request) {
+        var responseList = shipMapper.selectShipListWithPosition(request);
+        var count = shipMapper.countShipList();
+
+        return new ListResponse<>(responseList, count);
     }
 
     @Transactional(propagation = Propagation.REQUIRES_NEW)

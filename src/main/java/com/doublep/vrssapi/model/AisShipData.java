@@ -159,17 +159,12 @@ public class AisShipData {
         ship.setShipSourceType(sourceType);
         ship.setImoNo(this.getImoNo());
         ship.setMmsi(this.getMmsi());
-        //
         ship.setCallSign(this.getCallSign());
         ship.setShipNm(this.getShipNm());
-        //
         ship.setShipType(String.valueOf(this.getShipType()));
-        //
         ship.setDestination(this.getDestination());
         ship.setEta(this.getEta());
-        //
         ship.setMaxDraughtM(Double.valueOf(this.getMaxDraught()));
-        //
 
         return ship;
     }

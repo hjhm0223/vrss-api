@@ -2,6 +2,105 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <mapper namespace="com.doublep.vrssapi.mapper.ShipMapper">
+    <resultMap id="ShipPositionResponseMap" type="ShipPositionResponse">
+        <!-- ship 테이블 매핑 -->
+        <id property="shipId" column="ship_id"/>
+        <result property="shipSourceType" column="ship_source_type"/>
+        <result property="imoNo" column="imo_no"/>
+        <result property="mmsi" column="mmsi"/>
+        <result property="vpassId" column="vpass_id"/>
+        <result property="fisherboatNo" column="fisherboat_no"/>
+        <result property="vtsId" column="vts_id"/>
+        <result property="svShipId" column="sv_ship_id"/>
+        <result property="svProcessStatus" column="sv_process_status"/>
+        <result property="callSign" column="call_sign"/>
+        <result property="shipNm" column="ship_nm"/>
+        <result property="shipAliasNm" column="ship_alias_nm"/>
+        <result property="shipType" column="ship_type"/>
+        <result property="shipTypeSize" column="ship_type_size"/>
+        <result property="shipTypeCargo" column="ship_type_cargo"/>
+        <result property="shipImage" column="ship_image"/>
+        <result property="built" column="built"/>
+        <result property="dwt" column="dwt"/>
+        <result property="hullType" column="hull_type"/>
+        <result property="gt" column="gt"/>
+        <result property="destination" column="destination"/>
+        <result property="eta" column="eta"/>
+        <result property="shipStatusType" column="ship_status_type"/>
+        <result property="builtBy" column="built_by"/>
+        <result property="builtAt" column="built_at"/>
+        <result property="loa" column="loa"/>
+        <result property="depthM" column="depth_m"/>
+        <result property="maxDraughtM" column="max_draught_m"/>
+        <result property="engineBuiltBy" column="engine_built_by"/>
+        <result property="designedBy" column="designed_by"/>
+        <result property="serviceSpeed" column="service_speed"/>
+        <result property="updtDt" column="updt_dt"/>
+        <result property="registDt" column="regist_dt"/>
+        <result property="registerId" column="register_id"/>
+        <result property="useYn" column="use_yn"/>
+        <result property="validShipCode" column="valid_ship_code"/>
+        <result property="beneficialOwner" column="beneficial_owner"/>
+        <result property="commercialOperator" column="commercial_operator"/>
+        <result property="registeredOwner" column="registered_owner"/>
+        <result property="technicalManager" column="technical_manager"/>
+        <result property="thirdPartyOperator" column="third_party_operator"/>
+        <result property="nominalOwner" column="nominal_owner"/>
+        <result property="ismManager" column="ism_manager"/>
+        <result property="breadth" column="breadth"/>
+        <result property="teuCapacity" column="teu_capacity"/>
+        <result property="liquidCapacity" column="liquid_capacity"/>
+
+        <!-- ais_ship_data_last 테이블 매핑 -->
+        <association property="position" javaType="AisShipData">
+            <result property="timestamp" column="timestamp"/>
+            <result property="mmsiProcess" column="mmsi_process"/>
+            <result property="mmsi" column="mmsi"/>
+            <result property="imoNo" column="imo_no"/>
+            <result property="mmsiOrgin" column="mmsi_orgin"/>
+            <result property="imoNoOrgin" column="imo_no_orgin"/>
+            <result property="positionPrcssSttusTy" column="position_prcss_sttus_ty"/>
+            <result property="staticPrcssSttusTy" column="static_prcss_sttus_ty"/>
+            <result property="mappingPrcssSttusTy" column="mapping_prcss_sttus_ty"/>
+            <result property="clstrTotal" column="clstr_total"/>
+            <result property="cretDt" column="cret_dt"/>
+            <result property="updtDt" column="updt_dt"/>
+            <result property="aisVer" column="ais_ver"/>
+            <result property="callSign" column="call_sign"/>
+            <result property="shipNm" column="ship_nm"/>
+            <result property="shipType" column="ship_type"/>
+            <result property="shipDimA" column="ship_dim_a"/>
+            <result property="shipDimB" column="ship_dim_b"/>
+            <result property="shipDimC" column="ship_dim_c"/>
+            <result property="shipDimD" column="ship_dim_d"/>
+            <result property="fixingDeviceSe" column="fixing_device_se"/>
+            <result property="eta" column="eta"/>
+            <result property="maxDraught" column="max_draught"/>
+            <result property="destination" column="destination"/>
+            <result property="staticRcvDt" column="static_rcv_dt"/>
+            <result property="lcRcvDt" column="lc_rcv_dt"/>
+            <result property="staticMessageNo" column="static_message_no"/>
+            <result property="lcMessageNo" column="lc_message_no"/>
+            <result property="dteFlag" column="dte_flag"/>
+            <result property="aisChannel" column="ais_channel"/>
+            <result property="repeatIdct" column="repeat_idct"/>
+            <result property="nvgSttus" column="nvg_sttus"/>
+            <result property="rot" column="rot"/>
+            <result property="sog" column="sog"/>
+            <result property="posAccrcy" column="pos_accrcy"/>
+            <result property="loLo" column="lo_lo"/>
+            <result property="laLa" column="la_la"/>
+            <result property="cog" column="cog"/>
+            <result property="heading" column="heading"/>
+            <result property="speclManuvIdct" column="specl_manuv_idct"/>
+            <result property="raimFlag" column="raim_flag"/>
+            <result property="cmmncSttus" column="cmmnc_sttus"/>
+            <result property="packetIds" column="packet_id_s"/>
+            <result property="aisClass" column="ais_class"/>
+            <result property="rcordDt" column="rcord_dt"/>
+            <result property="clstrCount" column="clstr_count"/>
+        </association>
+    </resultMap>
 
     <select id="selectShip" parameterType="java.lang.String" resultType="Ship">
         SELECT ship_id
@@ -52,6 +151,110 @@
              , liquid_capacity
         FROM ship
         WHERE ship_id = #{shipId}
+    </select>
+
+    <select id="selectShipListWithPosition" parameterType="CommonRequest" resultMap="ShipPositionResponseMap">
+        SELECT ship.ship_id
+             , ship.ship_source_type
+             , ship.imo_no
+             , ship.mmsi
+             , ship.vpass_id
+             , ship.fisherboat_no
+             , ship.vts_id
+             , ship.sv_ship_id
+             , ship.sv_process_status
+             , ship.call_sign
+             , ship.ship_nm
+             , ship.ship_alias_nm
+             , ship.ship_type
+             , ship.ship_type_size
+             , ship.ship_type_cargo
+             , ship.ship_image
+             , ship.built
+             , ship.dwt
+             , ship.hull_type
+             , ship.gt
+             , ship.destination
+             , ship.eta
+             , ship.ship_status_type
+             , ship.built_by
+             , ship.built_at
+             , ship.loa
+             , ship.depth_m
+             , ship.max_draught_m
+             , ship.engine_built_by
+             , ship.designed_by
+             , ship.service_speed
+             , ship.updt_dt
+             , ship.regist_dt
+             , ship.register_id
+             , ship.use_yn
+             , ship.valid_ship_code
+             , ship.beneficial_owner
+             , ship.commercial_operator
+             , ship.registered_owner
+             , ship.technical_manager
+             , ship.third_party_operator
+             , ship.nominal_owner
+             , ship.ism_manager
+             , ship.breadth
+             , ship.teu_capacity
+             , ship.liquid_capacity
+            , ais.timestamp
+            , ais.mmsi_process
+            , ais.mmsi
+            , ais.imo_no
+            , ais.mmsi_orgin
+            , ais.imo_no_orgin
+            , ais.position_prcss_sttus_ty
+            , ais.static_prcss_sttus_ty
+            , ais.mapping_prcss_sttus_ty
+            , ais.clstr_total
+            , ais.cret_dt
+            , ais.updt_dt
+            , ais.ais_ver
+            , ais.call_sign
+            , ais.ship_nm
+            , ais.ship_type
+            , ais.ship_dim_a
+            , ais.ship_dim_b
+            , ais.ship_dim_c
+            , ais.ship_dim_d
+            , ais.fixing_device_se
+            , ais.eta
+            , ais.max_draught
+            , ais.destination
+            , ais.static_rcv_dt
+            , ais.lc_rcv_dt
+            , ais.static_message_no
+            , ais.lc_message_no
+            , ais.dte_flag
+            , ais.ais_channel
+            , ais.repeat_idct
+            , ais.nvg_sttus
+            , ais.rot
+            , ais.sog
+            , ais.pos_accrcy
+            , ais.lo_lo
+            , ais.la_la
+            , ais.cog
+            , ais.heading
+            , ais.specl_manuv_idct
+            , ais.raim_flag
+            , ais.cmmnc_sttus
+            , ais.packet_id_s
+            , ais.ais_class
+            , ais.rcord_dt
+            , ais.clstr_count
+        FROM ship AS ship
+        LEFT OUTER JOIN ais_ship_data_last AS ais ON ship.mmsi = ais.mmsi AND ship.imo_no = ais.imo_no
+        ORDER BY ship.updt_dt DESC
+        LIMIT #{limit} OFFSET #{offset}
+    </select>
+
+    <select id="countShipList" resultType="int">
+        SELECT COUNT(*)
+        FROM ship
     </select>
 
     <insert id="upsertShip" parameterType="Ship">
