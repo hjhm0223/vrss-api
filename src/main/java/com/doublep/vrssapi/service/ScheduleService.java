@@ -25,7 +25,7 @@ public class ScheduleService {
     /**
      * 10분마다 실행
      */
-//    @Scheduled(fixedRate = 600000) // 10분
+    @Scheduled(fixedRate = 600000) // 10분
     public void monitorUnregisteredShip() {
         log.info("Checking for unregistered ship data.");
         shipService.checkUnregisteredShipList();
